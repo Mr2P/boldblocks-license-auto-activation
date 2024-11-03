@@ -3,14 +3,13 @@
  * Plugin Name: Boldblocks - license auto activation
  * Description: Autoactivate license via wp-config.php
  * Version:     1.0.0
- * Author:      vovafeldman, squarecandy, mr2p
- * Plugin URI:  https://github.com/mr2p/boldblocks-auto-activation
+ * Author:      mr2p
  *
  * Adapted from https://gist.github.com/vovafeldman/f28a46958d8f648cf3f62c7a3a975a8e
  */
 
-if ( ! class_exists( 'Freemius_License_Auto_Activator' ) ) {
-	class Freemius_License_Auto_Activator {
+if ( ! class_exists( 'BoldBlocks_License_Auto_Activator' ) ) {
+	class BoldBlocks_License_Auto_Activator {
 		private $shortcode;
 		private $license_key;
 
@@ -81,15 +80,15 @@ function boldblocks_license_autoactivate() {
 	$fs_shortcodes = [];
 
 	if ( defined( 'MFB_LICENSE_KEY' ) && ! empty( MFB_LICENSE_KEY ) ) {
-		$fs_shortcodes['mfb_fs'] = MFB_LICENSE_KEY;
+		$fs_shortcodes['MetaFieldBlock\mfb_fs'] = MFB_LICENSE_KEY;
 	}
 
 	if ( defined( 'CBB_LICENSE_KEY' ) && ! empty( CBB_LICENSE_KEY ) ) {
-		$fs_shortcodes['cbb_fs'] = CBB_LICENSE_KEY;
+		$fs_shortcodes['BoldBlocks\cbb_fs'] = CBB_LICENSE_KEY;
 	}
 
 	foreach ( $fs_shortcodes as $fs_shortcode => $license_key ) {
-		( new Freemius_License_Auto_Activator( $fs_shortcode, $license_key ) )->run();
+		( new BoldBlocks_License_Auto_Activator( $fs_shortcode, $license_key ) )->run();
 	}
 }
 add_action( 'plugins_loaded', 'boldblocks_license_autoactivate' );
